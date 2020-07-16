@@ -25,9 +25,6 @@ $(document).ready(function() {
   }); 
 
 
-
-
-
 	function validateForms(form){
     $(form).validate({
       rules: {
