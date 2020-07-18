@@ -1,3 +1,23 @@
+window.addEventListener('DOMContentLoaded', () => {
+	const menu = document.querySelector('.menu'),
+	menuItem = document.querySelectorAll('.menu_item'),
+	hamburger = document.querySelector('.hamburger');
+
+	hamburger.addEventListener('click', () => {
+			hamburger.classList.toggle('hamburger_active');
+			menu.classList.toggle('menu_active');
+	});
+
+	menuItem.forEach(item => {
+			item.addEventListener('click', () => {
+					hamburger.classList.toggle('hamburger_active');
+					menu.classList.toggle('menu_active');
+			})
+	})
+})
+
+
+
 $(document).ready(function() {
 
   // modal
@@ -23,6 +43,9 @@ $(document).ready(function() {
 	$('.modal_close').on('click', function() {
     $('.overlay, #consultation, #search, #thanks, #authorization_sing_up, #authorization_login').fadeOut('slow');
   }); 
+
+
+
 
 
 	function validateForms(form){
@@ -56,6 +79,7 @@ $(document).ready(function() {
 					maxlength: 2
 				},
 				number_child: {
+					required: true,
 					digits: true,
 					minlength: 1,
 					maxlength: 2
@@ -76,7 +100,8 @@ $(document).ready(function() {
 				country: "Пожалуйста, введите направление",
 				date_check_in: "Пожалуйста, введите дату заезда",
 				date_check_out: "Пожалуйста, введите дату выезда",
-				number_adult: "Пожалуйста, введите количество взрослых"
+				number_adult: "Пожалуйста, введите количество взрослых",
+				number_child: "Пожалуйста, введите количество детей"
       }
     });
   };
@@ -130,20 +155,3 @@ $(document).ready(function() {
 });
 
 
-window.addEventListener('DOMContentLoaded', () => {
-	const menu = document.querySelector('.menu'),
-	menuItem = document.querySelectorAll('.menu_item'),
-	hamburger = document.querySelector('.hamburger');
-
-	hamburger.addEventListener('click', () => {
-			hamburger.classList.toggle('hamburger_active');
-			menu.classList.toggle('menu_active');
-	});
-
-	menuItem.forEach(item => {
-			item.addEventListener('click', () => {
-					hamburger.classList.toggle('hamburger_active');
-					menu.classList.toggle('menu_active');
-			})
-	})
-});
