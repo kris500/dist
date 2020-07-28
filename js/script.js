@@ -131,18 +131,6 @@ $(document).ready(function() {
 
 
 
-/* 	const location = $('#location').val();
-	const check_in = $('#check_in').val();
-	const check_out = $('#check_out').val();
-	const adult = $('#adult').val();
-	const child = $('#child').val();
- */		
-
-/* form.validate();
-$( "button" ).click(function() {
-  alert( "Valid: " + form.valid() );
-});
- */
 
 	$('.btn_search').on('click', function() {
 
@@ -154,34 +142,9 @@ $( "button" ).click(function() {
 	});
 
 				// $('#submit').removeAttr('disabled');
-/* 	
-		var numInvalid = $("#find_hotels form").numberOfInvalids();
-		if (numInvalid == 0) {
-
-			$("#find_hotels form").valid();
-		var validator = $("#find_hotels form").valid();
-			if( validator.numberOfInvalids() != 0 ) {
-
- */
-	// if (form.validate() == false) {
-		// if (form.checkValidity() == true) {
-		// if(location.length != 0 && check_in.length != 0 && check_out.length != 0 && adult.length != 0 && child.length != 0) {
 
 
-/* 	$('.btn_search').on('click', function() {
-		var textContent = location + ',  ' + check_in + ' - ' +  check_out + ',  ' + 'взрослых: ' +  adult + ',  детей: ' +  child;
-		$('#search .modal_descr').text(textContent);
-		$('.overlay, #search').fadeIn('slow');
-	});
- */
-/* 	$('.btn_search').on('click', function() {
-				var textContent = location + ',  ' + check_in + ' - ' +  check_out + ',  ' + 'взрослых: ' +  adult + ',  детей: ' +  child;
 
-		var textContent = $('#location').val() + ',  ' + $('#check_in').val() + ' - ' +  $('#check_out').val() + ',  ' + 'взрослых: ' +  $('#adult').val() + ',  детей: ' +  $('#child').val();
-		$('#search .modal_descr').text(textContent);
-		$('.overlay, #search').fadeIn('slow');
-	});
- */
 	
 	$('.modal_close').on('click', function() {
     $('.overlay, #consultation, #search, #thanks, #authorization_sing_up, #authorization_login').fadeOut('slow');
