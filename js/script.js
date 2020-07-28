@@ -20,31 +20,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
 $(document).ready(function() {
 
-  // modal
+	$.validator.addMethod("lettersonly", function(value, element) {
+		return this.optional(element) || /^[а-я, А-Я]+$/i.test(value);
+	}); 
 
-	$('#login').on('click', function () {
-    $('.overlay, #authorization_login').fadeIn('slow');
+
+	$.validator.addMethod('validDate', function (value, element) {
+		return this.optional(element) || /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](202)\d+$/i.test(value);
 	});
-	
-	$('#sing_up').on('click', function () {
-    $('.overlay, #authorization_sing_up').fadeIn('slow');
-  });
-
-	$('[data-modal=consultation]').on('click', function () {
-    $('.overlay, #consultation').fadeIn('slow');
-  });
-
-	$('.btn_search').on('click', function() {
-		var textContent = $('#where').val() + ', ' + $('#check_in').val() + ' - ' +  $('#check_out').val() + ', ' + 'взрослых: ' +  $('#adult').val() + ', детей: ' +  $('#child').val();
-		$('#search .modal_descr').text(textContent);
-		$('.overlay, #search').fadeIn('slow');
-	});
-
-	$('.modal_close').on('click', function() {
-    $('.overlay, #consultation, #search, #thanks, #authorization_sing_up, #authorization_login').fadeOut('slow');
-  }); 
-
-
 
 
 
@@ -53,7 +36,8 @@ $(document).ready(function() {
       rules: {
 				name: {
 					required: true,
-					minlength: 2
+					minlength: 2,
+					lettersonly: true 
 				},
 				phone: "required",
 				email: {
@@ -62,30 +46,26 @@ $(document).ready(function() {
 				},
 				country: {
 					required: true,
-					digits: false
+					minlength: 2,
+					lettersonly: true 
 				},
 				date_check_in: {
-					date: true,
-					required: true
+					required: true,
+					validDate: true 
 				},
 				date_check_out: {
-					date: true,
-					required: true
+					required: true,
+					validDate: true 
 				},
 				number_adult: {
 					required: true,
 					digits: true,
-					minlength: 1,
-					maxlength: 2
+					range: [1, 12]
 				},
 				number_child: {
 					required: true,
 					digits: true,
-					minlength: 1,
-					maxlength: 2
-				},
-				location: {
-					required: true,
+					range: [0, 12]
 				}
       },
       messages: {
@@ -97,11 +77,26 @@ $(document).ready(function() {
 				},
 				login: "Пожалуйста, введите логин",
 				registrationKey: "Пожалуйста, введите пароль",
-				country: "Пожалуйста, введите направление",
-				date_check_in: "Пожалуйста, введите дату заезда",
-				date_check_out: "Пожалуйста, введите дату выезда",
-				number_adult: "Пожалуйста, введите количество взрослых",
-				number_child: "Пожалуйста, введите количество детей"
+				country: {
+					required: "Пожалуйста, введите направление",
+					lettersonly: "Некорректный символ"
+				},
+				date_check_in: {
+					required: "Пожалуйста, введите дату заезда",
+					validDate: "Некорректная дата"
+				},
+				date_check_out: {
+					required: "Пожалуйста, введите дату выезда",
+					validDate: "Некорректная дата"
+				},
+				number_adult: {
+					required: "Пожалуйста, введите количество взрослых",
+					range: "Введите значение от 1 до 12"
+				},
+				number_child: {
+					required: "Пожалуйста, введите количество детей",
+					range: "Введите значение от 0 до 12"
+				}
       }
     });
   };
@@ -116,6 +111,90 @@ $(document).ready(function() {
 	$("input[name=phone]").mask("+7 (999) 999-99-99");
 	$("input[name=date_check_in]").mask("99/99/9999");
 	$("input[name=date_check_out]").mask("99/99/9999");
+
+
+	
+  // modal
+
+	$('#login').on('click', function () {
+		$('.overlay, #authorization_login').fadeIn('slow');
+	});
+
+	
+	$('#sing_up').on('click', function () {
+    $('.overlay, #authorization_sing_up').fadeIn('slow');
+  });
+
+	$('[data-modal=consultation]').on('click', function () {
+    $('.overlay, #consultation').fadeIn('slow');
+  });
+
+
+
+/* 	const location = $('#location').val();
+	const check_in = $('#check_in').val();
+	const check_out = $('#check_out').val();
+	const adult = $('#adult').val();
+	const child = $('#child').val();
+ */		
+
+/* form.validate();
+$( "button" ).click(function() {
+  alert( "Valid: " + form.valid() );
+});
+ */
+
+	$('.btn_search').on('click', function() {
+
+		if ($("#find_hotels form").valid({debug: true}) ) {
+			var textContent = $('#location').val() + ',  ' + $('#check_in').val() + ' - ' +  $('#check_out').val() + ',  ' + 'взрослых: ' +  $('#adult').val() + ',  детей: ' +  $('#child').val();
+			$('#search .modal_descr').text(textContent);
+			$('.overlay, #search').fadeIn('slow');
+		}
+	});
+
+				// $('#submit').removeAttr('disabled');
+/* 	
+		var numInvalid = $("#find_hotels form").numberOfInvalids();
+		if (numInvalid == 0) {
+
+			$("#find_hotels form").valid();
+		var validator = $("#find_hotels form").valid();
+			if( validator.numberOfInvalids() != 0 ) {
+
+ */
+	// if (form.validate() == false) {
+		// if (form.checkValidity() == true) {
+		// if(location.length != 0 && check_in.length != 0 && check_out.length != 0 && adult.length != 0 && child.length != 0) {
+
+
+/* 	$('.btn_search').on('click', function() {
+		var textContent = location + ',  ' + check_in + ' - ' +  check_out + ',  ' + 'взрослых: ' +  adult + ',  детей: ' +  child;
+		$('#search .modal_descr').text(textContent);
+		$('.overlay, #search').fadeIn('slow');
+	});
+ */
+/* 	$('.btn_search').on('click', function() {
+				var textContent = location + ',  ' + check_in + ' - ' +  check_out + ',  ' + 'взрослых: ' +  adult + ',  детей: ' +  child;
+
+		var textContent = $('#location').val() + ',  ' + $('#check_in').val() + ' - ' +  $('#check_out').val() + ',  ' + 'взрослых: ' +  $('#adult').val() + ',  детей: ' +  $('#child').val();
+		$('#search .modal_descr').text(textContent);
+		$('.overlay, #search').fadeIn('slow');
+	});
+ */
+	
+	$('.modal_close').on('click', function() {
+    $('.overlay, #consultation, #search, #thanks, #authorization_sing_up, #authorization_login').fadeOut('slow');
+		$('#consultation form, #authorization_sing_up form').trigger('reset');
+		$('label[class="error"]').text('');
+		$('input[class="error"]').attr('border: none');
+
+	}); 
+	
+
+
+
+
 
 
 
@@ -153,5 +232,3 @@ $(document).ready(function() {
     return false;
 	});
 });
-
-
